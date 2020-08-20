@@ -7,6 +7,7 @@ FRENDS Community Tasks to process JSON.
 - [Installing](#installing)
 - [Tasks](#tasks)
      - [EnforceJsonTypes](#EnforceJsonTypes)
+     - [JsonMapper](#JsonMapper)
 - [Building](#building)
 - [Contributing](#contributing)
 - [Change Log](#change-log)
@@ -40,6 +41,85 @@ Rules:
 - `"$.prop2" => Boolean`
 
 The output would be: `{ "prop1": 123.0, "prop2": true }`
+
+## JsonMapper
+
+The JsonMapper task is meant for simple JSON to JSON transformation using [JUST.net](https://github.com/WorkMaze/JUST.net) library. 
+It can also be used for JSON to XML or CSV transformation, but it is not recommeded.
+
+Input JSON is validated before actual transformation is executed. If input is invalid or transformation fails, an exception is thrown.
+
+### Properties
+
+| Property     | Type	    | Description    | Example        |
+|:------------:|:----------:|----------------|----------------|
+| Input Json | Object | Source Json to transform. Has to be String or JToken type | `{"firstName": "Jane", "lastName": "Doe" }` |
+| Json Map | string | JUST transformation code. See [JUST.Net documentaion](https://github.com/WorkMaze/JUST.net#just) for details of usage | `{"fullName": "#xconcat(#valueof($.firstName), ,#valueof($.lastName))"}` |
+
+### Returns
+
+| Property     | Type	    | Description    | Example        |
+|:------------:|:----------:|----------------|----------------|
+| Result | string | Contains transformation result. | `{ "fullName" : "Jane Doe" }` |
+| ToJson() | JToken | Method that returns Result string as JToken type. | |
+
+#### Example
+
+Simple example of combining two values from source JSON:
+
+**Input Json:**
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe"
+}
+```
+**Json Map:**
+```json
+{
+  "Name": "#xconcat(#valueof($.firstName), ,#valueof($.lastName))"
+}
+```
+
+**Transformation result:**
+```json
+{
+  "Name": "John Doe"
+}
+```
+
+#### Known issues (up-to-date?)
+
+Json which root node is of type array does not work. It has to wrapped around an object.
+Example:
+
+Input
+```json
+[{
+  "Name": "John Doe"
+},
+{
+  "Name": "John Doe"
+}]
+```
+with Json Map
+```json
+{
+  "Name": "#valueof($.[0].firstName)"
+}
+```
+**throws exception in transformation**. This can be avoided by wrapping Input Json as follows:
+
+```json
+{ "root":
+[{
+  "Name": "John Doe"
+},
+{
+  "Name": "John Doe"
+}]
+}
+```
 
 # Building
 
