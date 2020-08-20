@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading;
 using Newtonsoft.Json.Linq;
+using JUST;
 
 #pragma warning disable 1591
 
@@ -12,11 +13,10 @@ namespace Frends.Community.JSON
         /// <summary>
         /// This task allows enforcing types in JSON documents by giving an array of
         /// JSON paths and corresponding JSON types.
-        /// Documentation: https://github.com/CommunityHiQ/Frends.Community.JSON.???
+        /// Documentation: https://github.com/CommunityHiQ/Frends.Community.JSON#EnforceJsonTypes
         /// </summary>
-        /// <param name="input">Parameters</param>
-        /// <returns></returns>
-        public static EnforceJsonTypesResult EnforceJsonTypes(EnforceJsonTypesInput input)
+        /// <returns>Object { string Result }</returns>
+        public static string EnforceJsonTypes(EnforceJsonTypesInput input)
         {
             var jObject = JObject.Parse(input.Json);
             foreach (var rule in input.Rules)
@@ -27,7 +27,37 @@ namespace Frends.Community.JSON
                 }
             }
 
-            return new EnforceJsonTypesResult(jObject.ToString());
+            return jObject.ToString();
+        }
+
+        /// <summary>
+        /// Maps input json using JUST.Net library. 
+        /// JsonMapper Task documentation: 'https://github.com/CommunityHiQ/Frends.Community.JSON#JsonMapper'
+        /// JUST.Net documentation: 'https://github.com/WorkMaze/JUST.net'
+        /// </summary>
+        /// <returns>Object { string Result, JToken ToJson() }</returns>
+        public static JsonMapperResult JsonMapper(JsonMapperInput input)
+        {
+            string result = string.Empty;
+            //Try parse input Json for simple validation
+            try
+            {
+                JToken.Parse(input.InputJson.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException("Input Json is not valid: " + ex.Message);
+            }
+            try
+            {
+                result = JsonTransformer.Transform(input.JsonMap, input.InputJson.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Json transformation failed: " + ex.Message, ex);
+            }
+
+            return new JsonMapperResult(result);
         }
 
 
@@ -35,8 +65,6 @@ namespace Frends.Community.JSON
         /// <summary>
         /// Changes value of JValue object to the desired JSON data type
         /// </summary>
-        /// <param name="value">JValue to change</param>
-        /// <param name="dataType">New data type</param>
         /// <returns></returns>
         internal static void ChangeDataType(JToken value, JsonDataType dataType)
         {

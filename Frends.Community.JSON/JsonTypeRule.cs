@@ -1,4 +1,6 @@
-﻿namespace Frends.Community.JSON {
+﻿#pragma warning disable 1591
+
+namespace Frends.Community.JSON {
     /// <summary>
     /// JSON data type enforcing rule
     /// </summary>
