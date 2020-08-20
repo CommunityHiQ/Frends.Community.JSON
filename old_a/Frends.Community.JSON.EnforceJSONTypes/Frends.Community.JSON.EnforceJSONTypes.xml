@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Frends.Community.JSON.EnforceJSONTypes</name>
+    </assembly>
+    <members>
+        <member name="T:Frends.Community.JSON.EnforceJSONTypes.EnforceJsonTypesParameters">
+            <summary>
+            Parameters for EnforceJsonTypes task
+            </summary>
+        </member>
+        <member name="P:Frends.Community.JSON.EnforceJSONTypes.EnforceJsonTypesParameters.Json">
+            <summary>
+            JSON document to process
+            </summary>
+        </member>
+        <member name="P:Frends.Community.JSON.EnforceJSONTypes.EnforceJsonTypesParameters.Rules">
+            <summary>
+            JSON data type rules to enforce
+            </summary>
+        </member>
+        <member name="T:Frends.Community.JSON.EnforceJSONTypes.JsonDataType">
+            <summary>
+            Possible JSON data types
+            </summary>
+        </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.String">
+            <summary>
+            JSON string type
+            </summary>
+        </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.Number">
+            <summary>
+            JSON number type
+            </summary>
+        </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.Boolean">
+            <summary>
+            JSON boolean type
+            </summary>
+        </member>
+        <member name="F:Frends.Community.JSON.EnforceJSONTypes.JsonDataType.Array">
+            <summary>
+            JSON array type
+            </summary>
+        </member>
+        <member name="T:Frends.Community.JSON.EnforceJSONTypes.JsonTypeEnforcer">
+            <summary>
+            JsonTypeEnforcer contains the EnforceJsonTypes task
+            </summary>
+        </member>
+        <member name="M:Frends.Community.JSON.EnforceJSONTypes.JsonTypeEnforcer.EnforceJsonTypes(Frends.Community.JSON.EnforceJSONTypes.EnforceJsonTypesParameters)">
+            <summary>
+            This task allows enforcing types in JSON documents by giving an array of
+            JSON paths and corresponding JSON types.
+            Documentation: https://github.com/CommunityHiQ/Frends.Community.JSON.EnforceJSONTypes
+            </summary>
+            <param name="parameters">Parameters</param>
+            <returns></returns>
+        </member>
+        <member name="M:Frends.Community.JSON.EnforceJSONTypes.JsonTypeEnforcer.ChangeDataType(Newtonsoft.Json.Linq.JToken,Frends.Community.JSON.EnforceJSONTypes.JsonDataType)">
+            <summary>
+            Changes value of JValue object to the desired JSON data type
+            </summary>
+            <param name="value">JValue to change</param>
+            <param name="dataType">New data type</param>
+            <returns></returns>
+        </member>
+        <member name="T:Frends.Community.JSON.EnforceJSONTypes.JsonTypeRule">
+            <summary>
+            JSON data type enforcing rule
+            </summary>
+        </member>
+        <member name="P:Frends.Community.JSON.EnforceJSONTypes.JsonTypeRule.JsonPath">
+            <summary>
+            JSON path for the rule
+            </summary>
+        </member>
+        <member name="P:Frends.Community.JSON.EnforceJSONTypes.JsonTypeRule.DataType">
+            <summary>
+            Data type to enforce
+            </summary>
+        </member>
+    </members>
+</doc>

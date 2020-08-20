@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Frends.Community.JsonMapper</id>
+    <version>1.0.0</version>
+    <title>FRENDS JsonMapper Task</title>
+    <authors>HiQ Finland</authors>
+    <owners />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Uses JUST.Net for Json mapping</description>
+    <summary />
+    <dependencies>
+		  <dependency id="JUST" version="5.1.3" />
+      <dependency id="Newtonsoft.Json" version="10.0.2"/>
+      <dependency id="Newtonsoft.Json.Schema" version="3.0.1" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+	<file src="..\Frends.Community.JsonMapper\bin\Release\Frends.Community.JsonMapper.dll" target="lib\net452\Frends.Community.JsonMapper.dll" />
+    <file src="..\Frends.Community.JsonMapper\bin\Release\Frends.Community.JsonMapper.XML" target="Frends.Community.JsonMapper.XML"/>
+  </files>
+</package>
