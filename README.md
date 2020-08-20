@@ -1,12 +1,12 @@
 # Frends.Community.JSON
 
-FRENDS Community Task for JSON
+FRENDS Community Tasks to process JSON.
 
 [![Actions Status](https://github.com/CommunityHiQ/Frends.Community.JSON/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.JSON/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.JSON) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 - [Installing](#installing)
 - [Tasks](#tasks)
-     - [JSON](#JSON)
+     - [EnforceJsonTypes](#EnforceJsonTypes)
 - [Building](#building)
 - [Contributing](#contributing)
 - [Change Log](#change-log)
@@ -18,35 +18,28 @@ https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view i
 
 # Tasks
 
-## JSON
+## EnforceJsonTypes
 
-Repeats message
+Frends task for enforcing types in JSON documents. The main use case is when you e.g. convert XML into JSON and you lose all the type info in the resulting JSON document. With this task you can restore the types inside the JSON document.
 
 ### Properties
 
-| Property | Type | Description | Example |
-| -------- | -------- | -------- | -------- |
-| Message | `string` | Some string that will be repeated. | `foo` |
-
-### Options
-
-| Property | Type | Description | Example |
-| -------- | -------- | -------- | -------- |
-| Amount | `int` | Amount how many times message is repeated. | `3` |
-| Delimiter | `string` | Character(s) used between replications. | `, ` |
+| Property             | Type                 | Description                          | Example |
+| ---------------------| ---------------------| ------------------------------------ | ----- |
+| Json | string | JSON document to process | `{ "prop1": "123", "prop2": "true" }`
+| Rules | JsonTypeRule[] | Rules for enforcing | `[`<br/>`{ "$.prop1", Number },`<br/>`{ "$.prop2", Boolean }`<br/>`]` |
 
 ### Returns
 
-A result object with parameters.
+Result contains the JSON document with types converted. Given the following input:
 
-| Property | Type | Description | Example |
-| -------- | -------- | -------- | -------- |
-| Replication | `string` | Repeated string. | `foo, foo, foo` |
+JSON:  `{ "prop1": "123", "prop2": "true" }`
 
-Usage:
-To fetch result use syntax:
+Rules:
+- `"$.prop1" => Number`
+- `"$.prop2" => Boolean`
 
-`#result.Replication`
+The output would be: `{ "prop1": 123.0, "prop2": true }`
 
 # Building
 
