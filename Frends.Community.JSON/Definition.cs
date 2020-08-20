@@ -6,43 +6,28 @@ using System.ComponentModel.DataAnnotations;
 namespace Frends.Community.JSON
 {
     /// <summary>
-    /// Parameters class usually requires parameters that are required.
+    /// Parameters for EnforceJsonTypes task
     /// </summary>
-    public class Parameters
+    public class EnforceJsonTypesInput
     {
         /// <summary>
-        /// Something that will be repeated.
+        /// JSON document to process
         /// </summary>
-        [DisplayFormat(DataFormatString = "Text")]
-        [DefaultValue("Lorem ipsum dolor sit amet.")]
-        public string Message;
+        public string Json { get; set; }
+
+        /// <summary>
+        /// JSON data type rules to enforce
+        /// </summary>
+        public JsonTypeRule[] Rules { get; set; }
     }
 
-    /// <summary>
-    /// Options class provides additional parameters.
-    /// </summary>
-    public class Options
+    public class EnforceJsonTypesResult
     {
-        /// <summary>
-        /// Number of times input is echoed.
-        /// </summary>
-        [DefaultValue(3)]
-        public int Amount;
+        public EnforceJsonTypesResult(string json)
+        {
+            Result = json;
+        }
 
-        /// <summary>
-        /// How repeats of input are separated.
-        /// </summary>
-        [DisplayFormat(DataFormatString = "Text")]
-        [DefaultValue(" ")]
-        public string Delimiter;
-    }
-
-    public class Result
-    {
-        /// <summary>
-        /// Contains input repeated specified times.
-        /// </summary>
-        [DisplayFormat(DataFormatString = "Text")]
-        public string Replication;
+        public string Result { get;  }
     }
 }
