@@ -117,7 +117,7 @@ Simple example of combining two values from source JSON:
 }
 ```
 
-#### Known issues (up-to-date?)
+#### Known issues
 
 Json which root node is of type array does not work. It has to wrapped around an object.
 Example:
@@ -137,7 +137,7 @@ with Json Map
   "Name": "#valueof($.[0].firstName)"
 }
 ```
-**throws exception in transformation**. This can be avoided by wrapping Input Json as follows:
+throws exception in transformation. **This can be avoided by wrapping Input Json as follows:**
 
 ```json
 { "root":

@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace Frends.Community.JSON.EnforceJSONTypes.Tests
+namespace Frends.Community.JSON.Tests
 {
     [TestClass]
     public class JsonTypeEnforcerTest
@@ -21,8 +21,8 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
   ""good_arr"": [ ""hello, world"" ],
   ""good_arr_2"": [ { ""prop1"": 123 } ],
 }";
-            var result = JsonTypeEnforcer.EnforceJsonTypes(
-                new EnforceJsonTypesParameters
+            var result = JSON.EnforceJsonTypes(
+                new EnforceJsonTypesInput
                 {
                     Json = json,
                     Rules = new[]
@@ -69,17 +69,17 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
 
             // Valid number
             jValue = new JValue("1.23");
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Number);
+            JSON.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(1.23, jValue.Value);
 
             // Invalid number - do nothing
             jValue = new JValue("foo");
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Number);
+            JSON.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual("foo", jValue.Value);
 
             // Source is number - do nothing
             jValue = new JValue(1.23);
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Number);
+            JSON.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(1.23, jValue.Value);
         }
 
@@ -90,12 +90,12 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
 
             // Empty - null
             jValue = new JValue("");
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Number);
+            JSON.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(null, jValue.Value);
 
             // Empty - null
             jValue = new JValue((string) null);
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Number);
+            JSON.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(null, jValue.Value);
         }
 
@@ -106,29 +106,29 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
 
             // Valid bool
             jValue = new JValue("true");
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Boolean);
+            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
 
             jValue = new JValue("TRUE");
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Boolean);
+            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
 
             jValue = new JValue("True");
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Boolean);
+            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
 
             jValue = new JValue("FaLsE");
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Boolean);
+            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(false, jValue.Value);
             // Null bool
 
             jValue = new JValue((bool?) null);
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Boolean);
+            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(null, jValue.Value);
 
             // Bool source
             jValue = new JValue(true);
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Boolean);
+            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
         }
 
@@ -140,7 +140,7 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
   ""arr"": 111
 }");
             var jValue = (JValue)jObject.SelectTokens("$.arr").First();
-            JsonTypeEnforcer.ChangeDataType(jValue, JsonDataType.Array);
+            JSON.ChangeDataType(jValue, JsonDataType.Array);
             var jArray = (JArray) jObject.SelectToken("$.arr");
             Assert.AreEqual(1, jArray.Count);
             Assert.AreEqual(111, jArray[0]);
@@ -154,7 +154,7 @@ namespace Frends.Community.JSON.EnforceJSONTypes.Tests
   ""arr"": { ""prop1"": 111 }
 }");
             var jToken = jObject.SelectTokens("$.arr").First();
-            JsonTypeEnforcer.ChangeDataType(jToken, JsonDataType.Array);
+            JSON.ChangeDataType(jToken, JsonDataType.Array);
             var jArray = (JArray)jObject.SelectToken("$.arr");
             Assert.AreEqual(1, jArray.Count);
             Assert.AreEqual(111, jArray[0]["prop1"].Value<int>());

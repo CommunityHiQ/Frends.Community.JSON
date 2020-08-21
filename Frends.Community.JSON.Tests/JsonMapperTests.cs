@@ -2,12 +2,12 @@
 using NUnit.Framework;
 using System;
 
-namespace Frends.Community.JsonMapper.Tests
+namespace Frends.Community.JSON.Tests
 {
     [TestFixture]
     public class JsonMapperTests
     {
-        InputProperties _testInput;
+        JsonMapperInput _testInput;
         private const string _testJson =
 @"
 {
@@ -28,7 +28,7 @@ namespace Frends.Community.JsonMapper.Tests
         [SetUp]
         public void TestSetup()
         {
-            _testInput = new InputProperties
+            _testInput = new JsonMapperInput
             {
                 InputJson = _testJson,
                 JsonMap = _testMap
@@ -39,19 +39,19 @@ namespace Frends.Community.JsonMapper.Tests
         public void TransformShouldAllowJTokenAsInput()
         {
             _testInput.InputJson = JToken.Parse(_testJson);
-            var result = JsonMapperTask.Transform(_testInput);
+            var result = JSON.JsonMapper(_testInput);
         }
 
         [Test]
         public void TransformShouldAllowStringAsInput()
         {
-            var result = JsonMapperTask.Transform(_testInput);
+            var result = JSON.JsonMapper(_testInput);
         }
 
         [Test]
         public void TransformMapsStringData()
         {
-            var result = JsonMapperTask.Transform(_testInput);
+            var result = JSON.JsonMapper(_testInput);
 
             var fullName = result.ToJson()["FullName"].Value<string>();
 
@@ -61,7 +61,7 @@ namespace Frends.Community.JsonMapper.Tests
         [Test]
         public void TransformMapsNumbersCorrectly()
         {
-            var result = JsonMapperTask.Transform(_testInput);
+            var result = JSON.JsonMapper(_testInput);
 
             var age = result.ToJson()["Age"];
 
@@ -72,7 +72,7 @@ namespace Frends.Community.JsonMapper.Tests
         [Test]
         public void TransformationMapsBoolValueCorrectly()
         {
-            var result = JsonMapperTask.Transform(_testInput);
+            var result = JSON.JsonMapper(_testInput);
 
             var breething = result.ToJson()["StillBreething"];
 
@@ -87,7 +87,7 @@ namespace Frends.Community.JsonMapper.Tests
             _testInput.InputJson = @"[{""key"":""first element""},{""key"":""second element""}]";
             _testInput.JsonMap = @"{""firstElement"":""#valueof($.[0].key)""}";
 
-            var result = JsonMapperTask.Transform(_testInput);
+            var result = JSON.JsonMapper(_testInput);
         }
 
 
@@ -96,7 +96,7 @@ namespace Frends.Community.JsonMapper.Tests
         {
             _testInput.InputJson = @"{ foo baar";
 
-            Assert.Throws<FormatException>(() => JsonMapperTask.Transform(_testInput));
+            Assert.Throws<FormatException>(() => JSON.JsonMapper(_testInput));
         }
 
         [Test]
@@ -104,7 +104,7 @@ namespace Frends.Community.JsonMapper.Tests
         {
             _testInput.JsonMap = @"{""age"":""#valuof($.age)"", ""foo}";
 
-            Assert.Throws<Exception>(() => JsonMapperTask.Transform(_testInput));
+            Assert.Throws<Exception>(() => JSON.JsonMapper(_testInput));
         }
 
     }

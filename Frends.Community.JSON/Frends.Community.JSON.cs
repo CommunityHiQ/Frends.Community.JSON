@@ -66,7 +66,7 @@ namespace Frends.Community.JSON
         /// Changes value of JValue object to the desired JSON data type
         /// </summary>
         /// <returns></returns>
-        internal static void ChangeDataType(JToken value, JsonDataType dataType)
+        public static void ChangeDataType(JToken value, JsonDataType dataType)
         {
             if (value == null)
             {
