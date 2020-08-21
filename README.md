@@ -154,4 +154,4 @@ throws exception in transformation. **This can be avoided by wrapping Input Json
 
 | Version | Changes |
 | ------- | ------- |
-| 0.0.1   | Development stil going on. |
+| 1.0.0   | Initial implementation. Two different tasks combined to one repo. |
