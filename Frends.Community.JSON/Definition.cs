@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json.Linq;
 
-namespace Frends.Community.JSON
+namespace Frends.Community.Json
 {
     public class EnforceJsonTypesInput
     {
@@ -61,5 +61,50 @@ namespace Frends.Community.JSON
         {
             return JToken.Parse(jsonString);
         }
+    }
+
+    /// <summary>
+    /// Json data type enforcing rule
+    /// </summary>
+    public class JsonTypeRule
+    {
+        public JsonTypeRule(string jsonPath, JsonDataType dataType)
+        {
+            JsonPath = jsonPath;
+            DataType = dataType;
+        }
+
+        /// <summary>
+        /// Json path for the rule
+        /// </summary>
+        public string JsonPath { get; set; }
+
+        /// <summary>
+        /// Data type to enforce
+        /// </summary>
+        public JsonDataType DataType { get; set; }
+    }
+
+    /// <summary>
+    /// Possible Json data types
+    /// </summary>
+    public enum JsonDataType
+    {
+        /// <summary>
+        /// Json string type
+        /// </summary>
+        String,
+        /// <summary>
+        /// Json number type
+        /// </summary>
+        Number,
+        /// <summary>
+        /// Json boolean type
+        /// </summary>
+        Boolean,
+        /// <summary>
+        /// Json array type
+        /// </summary>
+        Array
     }
 }

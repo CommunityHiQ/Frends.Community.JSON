@@ -1,8 +1,8 @@
-# Frends.Community.JSON
+# Frends.Community.Json
 
-FRENDS Community Tasks to process JSON.
+FRENDS Community Tasks to process Json.
 
-[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.JSON/.github/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.JSON/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.JSON) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.Json/.github/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.Json/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.Json) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 - [Installing](#installing)
 - [Building](#building)
@@ -15,13 +15,13 @@ FRENDS Community Tasks to process JSON.
 ## Installing
 
 You can install the task via FRENDS UI Task View or you can find the NuGet package from the following NuGet feed
-https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.JSON
+https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.Json
 
 ## Building
 
 Clone a copy of the repo
 
-`git clone https://github.com/CommunityHiQ/Frends.Community.JSON.git`
+`git clone https://github.com/CommunityHiQ/Frends.Community.Json.git`
 
 Rebuild the project
 
@@ -50,20 +50,20 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ### EnforceJsonTypes
 
-Frends task for enforcing types in JSON documents. The main use case is when you e.g. convert XML into JSON and you lose all the type info in the resulting JSON document. With this task you can restore the types inside the JSON document.
+Frends task for enforcing types in Json documents. The main use case is when you e.g. convert XML into Json and you lose all the type info in the resulting Json document. With this task you can restore the types inside the Json document.
 
 #### Properties
 
 | Property             | Type                 | Description                          | Example |
 | ---------------------| ---------------------| ------------------------------------ | ----- |
-| Json | string | JSON document to process | `{ "prop1": "123", "prop2": "true" }`
+| Json | string | Json document to process | `{ "prop1": "123", "prop2": "true" }`
 | Rules | JsonTypeRule[] | Rules for enforcing | `[`<br/>`{ "$.prop1", Number },`<br/>`{ "$.prop2", Boolean }`<br/>`]` |
 
 #### Returns
 
-Result contains the JSON document with types converted. Given the following input:
+Result contains the Json document with types converted. Given the following input:
 
-JSON:  `{ "prop1": "123", "prop2": "true" }`
+Json:  `{ "prop1": "123", "prop2": "true" }`
 
 Rules:
 - `"$.prop1" => Number`
@@ -73,10 +73,10 @@ The output would be: `{ "prop1": 123.0, "prop2": true }`
 
 ### JsonMapper
 
-The JsonMapper task is meant for simple JSON to JSON transformation using [JUST.net](https://github.com/WorkMaze/JUST.net) library. 
-It can also be used for JSON to XML or CSV transformation, but it is not recommeded.
+The JsonMapper task is meant for simple Json to Json transformation using [JUST.net](https://github.com/WorkMaze/JUST.net) library. 
+It can also be used for Json to XML or CSV transformation, but it is not recommeded.
 
-Input JSON is validated before actual transformation is executed. If input is invalid or transformation fails, an exception is thrown.
+Input Json is validated before actual transformation is executed. If input is invalid or transformation fails, an exception is thrown.
 
 #### Properties
 
@@ -94,7 +94,7 @@ Input JSON is validated before actual transformation is executed. If input is in
 
 #### Example
 
-Simple example of combining two values from source JSON:
+Simple example of combining two values from source Json:
 
 **Input Json:**
 ```json

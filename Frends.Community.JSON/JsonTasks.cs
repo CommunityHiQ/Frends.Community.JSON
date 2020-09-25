@@ -6,17 +6,17 @@ using JUST;
 
 #pragma warning disable 1591
 
-namespace Frends.Community.JSON
+namespace Frends.Community.Json
 {
-    public class JSON
+    public class JsonTasks
     {
         /// <summary>
-        /// This task allows enforcing types in JSON documents by giving an array of
-        /// JSON paths and corresponding JSON types.
-        /// Documentation: https://github.com/CommunityHiQ/Frends.Community.JSON#EnforceJsonTypes
+        /// This task allows enforcing types in Json documents by giving an array of
+        /// Json paths and corresponding Json types.
+        /// Documentation: https://github.com/CommunityHiQ/Frends.Community.Json#EnforceJsonTypes
         /// </summary>
         /// <returns>Object { string Result }</returns>
-        public static string EnforceJsonTypes(EnforceJsonTypesInput input)
+        public static string EnforceJsonTypes(EnforceJsonTypesInput input, CancellationToken cancellationToken)
         {
             var jObject = JObject.Parse(input.Json);
             foreach (var rule in input.Rules)
@@ -32,11 +32,11 @@ namespace Frends.Community.JSON
 
         /// <summary>
         /// Maps input json using JUST.Net library. 
-        /// JsonMapper Task documentation: 'https://github.com/CommunityHiQ/Frends.Community.JSON#JsonMapper'
+        /// JsonMapper Task documentation: 'https://github.com/CommunityHiQ/Frends.Community.Json#JsonMapper'
         /// JUST.Net documentation: 'https://github.com/WorkMaze/JUST.net'
         /// </summary>
         /// <returns>Object { string Result, JToken ToJson() }</returns>
-        public static JsonMapperResult JsonMapper(JsonMapperInput input)
+        public static JsonMapperResult JsonMapper(JsonMapperInput input, CancellationToken cancellationToken)
         {
             string result = string.Empty;
             //Try parse input Json for simple validation
@@ -63,7 +63,7 @@ namespace Frends.Community.JSON
 
 
         /// <summary>
-        /// Changes value of JValue object to the desired JSON data type
+        /// Changes value of JValue object to the desired Json data type
         /// </summary>
         /// <returns></returns>
         public static void ChangeDataType(JToken value, JsonDataType dataType)
@@ -135,14 +135,14 @@ namespace Frends.Community.JSON
 
                         break;
                     default:
-                        throw new Exception($"Unknown JSON data type {dataType}");
+                        throw new Exception($"Unknown Json data type {dataType}");
                 }
 
                 if (dataType != JsonDataType.Array) value.Value = newValue;
             }
-            catch
+            catch (Exception e)
             {
-                // do nothing
+                throw new Exception(e.Message);
             }
         }
     }
