@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System;
+using System.Threading;
 
-namespace Frends.Community.JSON.Tests
+namespace Frends.Community.Json.Tests
 {
     [TestFixture]
     public class JsonMapperTests
@@ -39,19 +40,19 @@ namespace Frends.Community.JSON.Tests
         public void TransformShouldAllowJTokenAsInput()
         {
             _testInput.InputJson = JToken.Parse(_testJson);
-            var result = JSON.JsonMapper(_testInput);
+            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
         }
 
         [Test]
         public void TransformShouldAllowStringAsInput()
         {
-            var result = JSON.JsonMapper(_testInput);
+            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
         }
 
         [Test]
         public void TransformMapsStringData()
         {
-            var result = JSON.JsonMapper(_testInput);
+            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
 
             var fullName = result.ToJson()["FullName"].Value<string>();
 
@@ -61,7 +62,7 @@ namespace Frends.Community.JSON.Tests
         [Test]
         public void TransformMapsNumbersCorrectly()
         {
-            var result = JSON.JsonMapper(_testInput);
+            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
 
             var age = result.ToJson()["Age"];
 
@@ -72,7 +73,7 @@ namespace Frends.Community.JSON.Tests
         [Test]
         public void TransformationMapsBoolValueCorrectly()
         {
-            var result = JSON.JsonMapper(_testInput);
+            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
 
             var breething = result.ToJson()["StillBreething"];
 
@@ -81,13 +82,13 @@ namespace Frends.Community.JSON.Tests
         }
 
         [Test]
-        [Ignore("JUST.net does not work with JSON which root element is array type")]
+        [Ignore("JUST.net does not work with Json which root element is array type")]
         public void TransformWorksWithArrayRootElement()
         {
             _testInput.InputJson = @"[{""key"":""first element""},{""key"":""second element""}]";
             _testInput.JsonMap = @"{""firstElement"":""#valueof($.[0].key)""}";
 
-            var result = JSON.JsonMapper(_testInput);
+            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
         }
 
 
@@ -96,7 +97,7 @@ namespace Frends.Community.JSON.Tests
         {
             _testInput.InputJson = @"{ foo baar";
 
-            Assert.Throws<FormatException>(() => JSON.JsonMapper(_testInput));
+            Assert.Throws<FormatException>(() => JsonTasks.JsonMapper(_testInput, new CancellationToken()));
         }
 
         [Test]
@@ -104,7 +105,7 @@ namespace Frends.Community.JSON.Tests
         {
             _testInput.JsonMap = @"{""age"":""#valuof($.age)"", ""foo}";
 
-            Assert.Throws<Exception>(() => JSON.JsonMapper(_testInput));
+            Assert.Throws<Exception>(() => JsonTasks.JsonMapper(_testInput, new CancellationToken()));
         }
 
     }

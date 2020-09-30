@@ -1,10 +1,10 @@
 ﻿{
 	"Tasks": [
 		{
-			"TaskMethod": "Frends.Community.JSON.JSON.EnforceJsonTypes"
+			"TaskMethod": "Frends.Community.Json.JsonTasks.EnforceJsonTypes"
 		},
 		{
-			"TaskMethod": "Frends.Community.JSON.JSON.JsonMapper"
+			"TaskMethod": "Frends.Community.Json.JsonTasks.JsonMapper"
 		}
 	]
 }

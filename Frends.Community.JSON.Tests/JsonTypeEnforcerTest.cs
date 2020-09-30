@@ -1,10 +1,11 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace Frends.Community.JSON.Tests
+namespace Frends.Community.Json.Tests
 {
     [TestClass]
     public class JsonTypeEnforcerTest
@@ -21,7 +22,7 @@ namespace Frends.Community.JSON.Tests
   ""good_arr"": [ ""hello, world"" ],
   ""good_arr_2"": [ { ""prop1"": 123 } ],
 }";
-            var result = JSON.EnforceJsonTypes(
+            var result = JsonTasks.EnforceJsonTypes(
                 new EnforceJsonTypesInput
                 {
                     Json = json,
@@ -35,7 +36,7 @@ namespace Frends.Community.JSON.Tests
                         new JsonTypeRule("$.good_arr", JsonDataType.Array),
                         new JsonTypeRule("$.good_arr_2", JsonDataType.Array),
                     }
-                });
+                }, new CancellationToken());
             var expected = @"{
   ""hello"": 123,
   ""hello_2"": 123.5,
@@ -69,17 +70,17 @@ namespace Frends.Community.JSON.Tests
 
             // Valid number
             jValue = new JValue("1.23");
-            JSON.ChangeDataType(jValue, JsonDataType.Number);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(1.23, jValue.Value);
 
             // Invalid number - do nothing
             jValue = new JValue("foo");
-            JSON.ChangeDataType(jValue, JsonDataType.Number);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual("foo", jValue.Value);
 
             // Source is number - do nothing
             jValue = new JValue(1.23);
-            JSON.ChangeDataType(jValue, JsonDataType.Number);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(1.23, jValue.Value);
         }
 
@@ -90,12 +91,12 @@ namespace Frends.Community.JSON.Tests
 
             // Empty - null
             jValue = new JValue("");
-            JSON.ChangeDataType(jValue, JsonDataType.Number);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(null, jValue.Value);
 
             // Empty - null
             jValue = new JValue((string) null);
-            JSON.ChangeDataType(jValue, JsonDataType.Number);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(null, jValue.Value);
         }
 
@@ -106,29 +107,29 @@ namespace Frends.Community.JSON.Tests
 
             // Valid bool
             jValue = new JValue("true");
-            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
 
             jValue = new JValue("TRUE");
-            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
 
             jValue = new JValue("True");
-            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
 
             jValue = new JValue("FaLsE");
-            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(false, jValue.Value);
             // Null bool
 
             jValue = new JValue((bool?) null);
-            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(null, jValue.Value);
 
             // Bool source
             jValue = new JValue(true);
-            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(true, jValue.Value);
         }
 
@@ -140,7 +141,7 @@ namespace Frends.Community.JSON.Tests
   ""arr"": 111
 }");
             var jValue = (JValue)jObject.SelectTokens("$.arr").First();
-            JSON.ChangeDataType(jValue, JsonDataType.Array);
+            JsonTasks.ChangeDataType(jValue, JsonDataType.Array);
             var jArray = (JArray) jObject.SelectToken("$.arr");
             Assert.AreEqual(1, jArray.Count);
             Assert.AreEqual(111, jArray[0]);
@@ -154,7 +155,7 @@ namespace Frends.Community.JSON.Tests
   ""arr"": { ""prop1"": 111 }
 }");
             var jToken = jObject.SelectTokens("$.arr").First();
-            JSON.ChangeDataType(jToken, JsonDataType.Array);
+            JsonTasks.ChangeDataType(jToken, JsonDataType.Array);
             var jArray = (JArray)jObject.SelectToken("$.arr");
             Assert.AreEqual(1, jArray.Count);
             Assert.AreEqual(111, jArray[0]["prop1"].Value<int>());
