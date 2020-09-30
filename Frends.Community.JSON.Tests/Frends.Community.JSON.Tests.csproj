@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Frends.Community.JSON\Frends.Community.JSON.csproj" />
+    <ProjectReference Include="..\Frends.Community.JSON\Frends.Community.Json.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,8 +19,11 @@ namespace Frends.Community.Json
         public static string EnforceJsonTypes(EnforceJsonTypesInput input, CancellationToken cancellationToken)
         {
             var jObject = JObject.Parse(input.Json);
+
             foreach (var rule in input.Rules)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 foreach (var jToken in jObject.SelectTokens(rule.JsonPath))
                 {
                     ChangeDataType(jToken, rule.DataType);
@@ -39,6 +42,9 @@ namespace Frends.Community.Json
         public static JsonMapperResult JsonMapper(JsonMapperInput input, CancellationToken cancellationToken)
         {
             string result = string.Empty;
+
+            cancellationToken.ThrowIfCancellationRequested();
+
             //Try parse input Json for simple validation
             try
             {
