@@ -148,7 +148,7 @@ namespace Frends.Community.Json
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                value.Value = newValue;
             }
         }
     }
