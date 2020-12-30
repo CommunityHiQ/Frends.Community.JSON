@@ -1,13 +1,13 @@
 # Frends.Community.Json
 
-FRENDS Community Tasks to process Json.
+FRENDS Community Tasks to process Json data.
 
 [![Actions Status](https://github.com/CommunityHiQ/Frends.Community.Json/.github/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.Json/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.Json) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 - [Installing](#installing)
 - [Building](#building)
 - [Contributing](#contributing)
-- [Documentation](#Documentation)
+- [Tasks](#Tasks)
      - [EnforceJsonTypes](#EnforceJsonTypes)
      - [JsonMapper](#JsonMapper)
 - [Change Log](#change-log)
@@ -46,22 +46,30 @@ When contributing to this repository, please first discuss the change you wish t
 
 NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
-## Documentation
+## Tasks
 
 ### EnforceJsonTypes
 
 Frends task for enforcing types in Json documents. The main use case is when you e.g. convert XML into Json and you lose all the type info in the resulting Json document. With this task you can restore the types inside the Json document.
 
-#### Properties
+#### Input Properties
 
 | Property             | Type                 | Description                          | Example |
 | ---------------------| ---------------------| ------------------------------------ | ----- |
-| Json | string | Json document to process | `{ "prop1": "123", "prop2": "true" }`
-| Rules | JsonTypeRule[] | Rules for enforcing | `[`<br/>`{ "$.prop1", Number },`<br/>`{ "$.prop2", Boolean }`<br/>`]` |
+| Json | `string` | Json document to process | `{ "prop1": "123", "prop2": "true" }`
+| Rules | `Array[JsonTypeRule]` | Rules for enforcing | `[`<br/>`{ "$.prop1", Number },`<br/>`{ "$.prop2", Boolean }`<br/>`]` |
+
+##### JsonTypeRule
+
+| Property             | Type                 | Description                          | Example |
+| ---------------------| ---------------------| ------------------------------------ | ----- |
+| Json path | `string` | Json path for the rule to use | `$.prop1` |
+| Data type | Enum<> | Data type to enforce | String |
+
 
 #### Returns
 
-Result contains the Json document with types converted. Given the following input:
+The result is a Json string with types converted. Given the following input:
 
 Json:  `{ "prop1": "123", "prop2": "true" }`
 
@@ -76,21 +84,23 @@ The output would be: `{ "prop1": 123.0, "prop2": true }`
 The JsonMapper task is meant for simple Json to Json transformation using [JUST.net](https://github.com/WorkMaze/JUST.net) library. 
 It can also be used for Json to XML or CSV transformation, but it is not recommeded.
 
-Input Json is validated before actual transformation is executed. If input is invalid or transformation fails, an exception is thrown.
+Input Json is validated before the actual transformation is executed. If the input is invalid or transformation fails, an exception is thrown.
 
-#### Properties
+#### Input Properties
 
 | Property     | Type	    | Description    | Example        |
 |:------------:|:----------:|----------------|----------------|
-| Input Json | Object | Source Json to transform. Has to be String or JToken type | `{"firstName": "Jane", "lastName": "Doe" }` |
-| Json Map | string | JUST transformation code. See [JUST.Net documentaion](https://github.com/WorkMaze/JUST.net#just) for details of usage | `{"fullName": "#xconcat(#valueof($.firstName), ,#valueof($.lastName))"}` |
+| Input json | `string` or `JToken` | Source Json to transform. Has to be String or JToken type. | `{"firstName": "Jane", "lastName": "Doe" }` |
+| Json map | `string` | JUST transformation code. See [JUST.Net documentaion](https://github.com/WorkMaze/JUST.net#just) for details of usage | `{"fullName": "#xconcat(#valueof($.firstName), ,#valueof($.lastName))"}` |
 
 #### Returns
 
+The result is an object with following properties
+
 | Property     | Type	    | Description    | Example        |
 |:------------:|:----------:|----------------|----------------|
-| Result | string | Contains transformation result. | `{ "fullName" : "Jane Doe" }` |
-| ToJson() | JToken | Method that returns Result string as JToken type. | |
+| Result | `string` | Contains transformation result. | `{ "fullName" : "Jane Doe" }` |
+| ToJson() | `JToken` | Method that returns Result string as JToken type. | |
 
 #### Example
 

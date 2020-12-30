@@ -15,7 +15,7 @@ namespace Frends.Community.Json
         /// Json paths and corresponding Json types.
         /// Documentation: https://github.com/CommunityHiQ/Frends.Community.Json#EnforceJsonTypes
         /// </summary>
-        /// <returns>Object { string Result }</returns>
+        /// <returns>string</returns>
         public static string EnforceJsonTypes(EnforceJsonTypesInput input, CancellationToken cancellationToken)
         {
             var jObject = JObject.Parse(input.Json);
