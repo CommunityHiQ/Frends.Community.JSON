@@ -40,13 +40,13 @@ namespace Frends.Community.Json.Tests
         public void TransformShouldAllowJTokenAsInput()
         {
             _testInput.InputJson = JToken.Parse(_testJson);
-            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
+            JsonTasks.JsonMapper(_testInput, new CancellationToken());
         }
 
         [Test]
         public void TransformShouldAllowStringAsInput()
         {
-            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
+            JsonTasks.JsonMapper(_testInput, new CancellationToken());
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Frends.Community.Json.Tests
             _testInput.InputJson = @"[{""key"":""first element""},{""key"":""second element""}]";
             _testInput.JsonMap = @"{""firstElement"":""#valueof($.[0].key)""}";
 
-            var result = JsonTasks.JsonMapper(_testInput, new CancellationToken());
+            JsonTasks.JsonMapper(_testInput, new CancellationToken());
         }
 
 

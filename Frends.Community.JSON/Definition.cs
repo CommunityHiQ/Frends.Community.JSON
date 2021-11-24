@@ -68,12 +68,6 @@ namespace Frends.Community.Json
     /// </summary>
     public class JsonTypeRule
     {
-        public JsonTypeRule(string jsonPath, JsonDataType dataType)
-        {
-            JsonPath = jsonPath;
-            DataType = dataType;
-        }
-
         /// <summary>
         /// Json path for the rule
         /// </summary>

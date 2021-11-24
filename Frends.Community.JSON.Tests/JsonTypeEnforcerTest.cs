@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,54 +12,26 @@ namespace Frends.Community.Json.Tests
         [TestMethod]
         public void EnforceJsonTypesTest()
         {
-            var json = @"{
-  ""hello"": ""123"",
-  ""hello_2"": ""123.5"",
-  ""world"": ""true"",
-  ""bad_arr"": ""hello, world"",
-  ""bad_arr_2"": { ""prop1"": 123 },
-  ""good_arr"": [ ""hello, world"" ],
-  ""good_arr_2"": [ { ""prop1"": 123 } ],
-}";
+            var json = "{\"hello\": \"123\",\"hello_2\": \"123.5\",\"world\": \"true\",\"bad_arr\": \"hello, world\",\"bad_arr_2\": { \"prop1\": 123 },\"good_arr\": [ \"hello, world\" ],\"good_arr_2\": [ { \"prop1\": 123 } ]}";
             var result = JsonTasks.EnforceJsonTypes(
                 new EnforceJsonTypesInput
                 {
                     Json = json,
                     Rules = new[]
                     {
-                        new JsonTypeRule("$.hello", JsonDataType.Number),
-                        new JsonTypeRule("$.hello_2", JsonDataType.Number),
-                        new JsonTypeRule("$.world", JsonDataType.Boolean),
-                        new JsonTypeRule("$.bad_arr", JsonDataType.Array),
-                        new JsonTypeRule("$.bad_arr_2", JsonDataType.Array),
-                        new JsonTypeRule("$.good_arr", JsonDataType.Array),
-                        new JsonTypeRule("$.good_arr_2", JsonDataType.Array),
+                        new JsonTypeRule{JsonPath = "$.hello", DataType = JsonDataType.Number },
+                        new JsonTypeRule{JsonPath = "$.hello_2", DataType = JsonDataType.Number },
+                        new JsonTypeRule{JsonPath = "$.world", DataType = JsonDataType.Boolean },
+                        new JsonTypeRule{JsonPath = "$.bad_arr", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.bad_arr_2", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.good_arr", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.good_arr_2", DataType = JsonDataType.Array },
                     }
                 }, new CancellationToken());
-            var expected = @"{
-  ""hello"": 123,
-  ""hello_2"": 123.5,
-  ""world"": true,
-  ""bad_arr"": [
-    ""hello, world""
-  ],
-  ""bad_arr_2"": [
-    {
-      ""prop1"": 123
-    }
-  ],
-  ""good_arr"": [
-    ""hello, world""
-  ],
-  ""good_arr_2"": [
-    {
-      ""prop1"": 123
-    }
-  ]
-}";
+            var expected = JObject.Parse("{\"hello\": 123,\"hello_2\": 123.5,\"world\": true,\"bad_arr\": [\"hello, world\"],\"bad_arr_2\": [{\"prop1\": 123}],\"good_arr\": [\"hello, world\"],\"good_arr_2\": [{\"prop1\": 123}]}");
             Console.WriteLine(expected);
             Console.WriteLine(result);
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected.ToString(), result);
         }
 
         [TestMethod]
@@ -171,7 +142,7 @@ namespace Frends.Community.Json.Tests
   ""arr"": [1,2,3,4]
 }");
             var tokens = jObject.SelectTokens("$.arr");
-            var cnt = tokens.Count();
+            tokens.Count();
         }
     }
 }

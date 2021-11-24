@@ -1,8 +1,8 @@
-# Frends.Community.Json
+# Frends.Community.JSON
 
 FRENDS Community Tasks to process Json data.
 
-[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.Json/.github/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.Json/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.Json) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.JSON/.github/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.JSON/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.JSON) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 - [Installing](#installing)
 - [Building](#building)
@@ -15,13 +15,13 @@ FRENDS Community Tasks to process Json data.
 ## Installing
 
 You can install the task via FRENDS UI Task View or you can find the NuGet package from the following NuGet feed
-https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.Json
+https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.JSON
 
 ## Building
 
 Clone a copy of the repo
 
-`git clone https://github.com/CommunityHiQ/Frends.Community.Json.git`
+`git clone https://github.com/CommunityHiQ/Frends.Community.JSON.git`
 
 Rebuild the project
 

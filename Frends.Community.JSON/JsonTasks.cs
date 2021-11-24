@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading;
 using Newtonsoft.Json.Linq;
 using JUST;
@@ -41,7 +40,7 @@ namespace Frends.Community.Json
         /// <returns>Object { string Result, JToken ToJson() }</returns>
         public static JsonMapperResult JsonMapper(JsonMapperInput input, CancellationToken cancellationToken)
         {
-            string result = string.Empty;
+            string result;
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -85,8 +84,7 @@ namespace Frends.Community.Json
                 return;
             }
 
-            var jValue = value as JValue;
-            if (jValue == null)
+            if (!(value is JValue jValue))
             {
                 throw new Exception($"This task can only convert JValue nodes' types and turn JTokens into JArrays, but the node type provided is {value.GetType().Name}");
             }
@@ -97,11 +95,12 @@ namespace Frends.Community.Json
         private static void ChangeJTokenIntoArray(JToken jToken)
         {
             if (jToken is JArray) return;
-            var jProperty = jToken.Parent as JProperty;
-            if (jProperty != null)
+            if (jToken.Parent is JProperty jProperty)
             {
-                var jArray = new JArray();
-                jArray.Add(jToken);
+                var jArray = new JArray
+                {
+                    jToken
+                };
                 jProperty.Value = jArray;
             }
         }
@@ -131,11 +130,12 @@ namespace Frends.Community.Json
                         break;
                     case JsonDataType.Array:
                         // Here we actually need to replace the JValue with a JArray that would contain the current JValue
-                        var jProperty = value.Parent as JProperty;
-                        if (jProperty != null)
+                        if (value.Parent is JProperty jProperty)
                         {
-                            var jArray = new JArray();
-                            jArray.Add(value);
+                            var jArray = new JArray
+                            {
+                                value
+                            };
                             jProperty.Value = jArray;
                         }
 
@@ -146,7 +146,7 @@ namespace Frends.Community.Json
 
                 if (dataType != JsonDataType.Array) value.Value = newValue;
             }
-            catch (Exception e)
+            catch
             {
                 value.Value = newValue;
             }
