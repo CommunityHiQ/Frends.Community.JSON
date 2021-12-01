@@ -2,7 +2,7 @@
 
 FRENDS Community Tasks to process Json data.
 
-[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.JSON/.github/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.JSON/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.JSON) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.JSON/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.JSON/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.JSON) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 - [Installing](#installing)
 - [Building](#building)
