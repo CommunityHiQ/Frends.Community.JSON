@@ -94,13 +94,14 @@ namespace Frends.Community.Json
 
         private static void ChangeJTokenIntoArray(JToken jToken)
         {
+            if (jToken.ToString().Equals("null")) return;
+            if (jToken.Type == JTokenType.Null) return;
             if (jToken is JArray) return;
-            if (jToken.Parent is JProperty jProperty)
+            var jProperty = jToken.Parent as JProperty;
+            if (jProperty != null)
             {
-                var jArray = new JArray
-                {
-                    jToken
-                };
+                var jArray = new JArray();
+                jArray.Add(jToken);
                 jProperty.Value = jArray;
             }
         }
