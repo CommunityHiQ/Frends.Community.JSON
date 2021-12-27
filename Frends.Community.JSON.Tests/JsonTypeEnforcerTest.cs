@@ -66,7 +66,7 @@ namespace Frends.Community.Json.Tests
             Assert.AreEqual(null, jValue.Value);
 
             // Empty - null
-            jValue = new JValue((string) null);
+            jValue = new JValue((string)null);
             JsonTasks.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(null, jValue.Value);
         }
@@ -94,7 +94,7 @@ namespace Frends.Community.Json.Tests
             Assert.AreEqual(false, jValue.Value);
             // Null bool
 
-            jValue = new JValue((bool?) null);
+            jValue = new JValue((bool?)null);
             JsonTasks.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(null, jValue.Value);
 
@@ -113,7 +113,7 @@ namespace Frends.Community.Json.Tests
 }");
             var jValue = (JValue)jObject.SelectTokens("$.arr").First();
             JsonTasks.ChangeDataType(jValue, JsonDataType.Array);
-            var jArray = (JArray) jObject.SelectToken("$.arr");
+            var jArray = (JArray)jObject.SelectToken("$.arr");
             Assert.AreEqual(1, jArray.Count);
             Assert.AreEqual(111, jArray[0]);
         }
@@ -143,6 +143,90 @@ namespace Frends.Community.Json.Tests
 }");
             var tokens = jObject.SelectTokens("$.arr");
             tokens.Count();
+        }
+
+        [TestMethod]
+        public void TestEmptyArray()
+        {
+            var json = @"{
+  ""arr1"": null,
+  ""arr2"": ""null"",
+  ""arr3"": 
+    {
+      ""prop"": ""null""
+    }
+}";
+            var result = JsonTasks.EnforceJsonTypes(
+                new EnforceJsonTypesInput
+                {
+                    Json = json,
+                    Rules = new[]
+                    {
+                        new JsonTypeRule{JsonPath = "$.arr1", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.arr2", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.arr3", DataType = JsonDataType.Array },
+                    }
+                }, new CancellationToken());
+            var expected = JObject.Parse(@"{
+  ""arr1"": null, 
+  ""arr2"": ""null"",
+  ""arr3"": [
+    {
+      ""prop"": ""null""
+    }
+  ]
+}");
+            Assert.AreEqual(expected.ToString(), result);
+        }
+
+        [TestMethod]
+        public void TestEmptyArrayOfArrays()
+        {
+            var json = @"{
+  ""arrays"": [
+    {
+      ""arr1"": null,
+    },
+    {
+      ""arr2"": ""null"",
+    },
+    {
+      ""arr3"": 
+        {
+          ""prop"": ""null""
+        }
+    }
+  ]
+}";
+            var result = JsonTasks.EnforceJsonTypes(
+                new EnforceJsonTypesInput
+                {
+                    Json = json,
+                    Rules = new[]
+                    {
+                        new JsonTypeRule{JsonPath = "$.arrays[0].arr1", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.arrays[1].arr2", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.arrays[2].arr3", DataType = JsonDataType.Array },
+                    }
+                }, new CancellationToken());
+            var expected = JObject.Parse(@"{
+  ""arrays"": [
+    {
+      ""arr1"": null, 
+    },
+    {
+      ""arr2"": ""null"",
+    },
+    {
+      ""arr3"": [
+        {
+          ""prop"": ""null""
+        }
+      ]
+    }
+  ]
+}");
+            Assert.AreEqual(expected.ToString(), result);
         }
     }
 }

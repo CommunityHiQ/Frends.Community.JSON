@@ -94,13 +94,12 @@ namespace Frends.Community.Json
 
         private static void ChangeJTokenIntoArray(JToken jToken)
         {
+            if (jToken.ToString().Equals("null")) return;
+            if (jToken.Type == JTokenType.Null) return;
             if (jToken is JArray) return;
             if (jToken.Parent is JProperty jProperty)
             {
-                var jArray = new JArray
-                {
-                    jToken
-                };
+                var jArray = new JArray { jToken };
                 jProperty.Value = jArray;
             }
         }
@@ -132,10 +131,7 @@ namespace Frends.Community.Json
                         // Here we actually need to replace the JValue with a JArray that would contain the current JValue
                         if (value.Parent is JProperty jProperty)
                         {
-                            var jArray = new JArray
-                            {
-                                value
-                            };
+                            var jArray = new JArray{ value };
                             jProperty.Value = jArray;
                         }
 
