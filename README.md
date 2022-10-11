@@ -167,3 +167,4 @@ throws exception in transformation. **This can be avoided by wrapping Input Json
 | 1.0.0   | Initial implementation. Two different tasks combined to one repo. |
 | 1.0.1   | Updated version number to fix release CI                          |
 | 1.0.2   | Fixed issue where null values are forced as array of null values. |
+| 1.0.3   | Downgraded Newtonsoft.Json to make make task work in Frends 5.3.  |
