@@ -1,6 +1,6 @@
 # Frends.Community.JSON
 
-FRENDS Community Tasks to process Json data.
+Frends Community Tasks to process Json data.
 
 [![Actions Status](https://github.com/CommunityHiQ/Frends.Community.JSON/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.JSON/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.JSON) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
@@ -14,7 +14,7 @@ FRENDS Community Tasks to process Json data.
 
 ## Installing
 
-You can install the task via FRENDS UI Task View or you can find the NuGet package from the following NuGet feed
+You can install the Task via Frends UI Task View or you can find the NuGet package from the following NuGet feed
 https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.JSON
 
 ## Building
@@ -23,7 +23,7 @@ Clone a copy of the repo
 
 `git clone https://github.com/CommunityHiQ/Frends.Community.JSON.git`
 
-Rebuild the project
+Build the project
 
 `dotnet build`
 
@@ -162,9 +162,10 @@ throws exception in transformation. **This can be avoided by wrapping Input Json
 
 ## Change Log
 
-| Version | Changes                                                           |
-| ------- | -------                                                           |
-| 1.0.0   | Initial implementation. Two different tasks combined to one repo. |
-| 1.0.1   | Updated version number to fix release CI                          |
-| 1.0.2   | Fixed issue where null values are forced as array of null values. |
-| 1.0.3   | Downgraded Newtonsoft.Json to make make task work in Frends 5.3.  |
+| Version | Changes                                                                          |
+|---------|----------------------------------------------------------------------------------|
+| 1.0.0   | Initial implementation. Two different tasks combined to one repo.                |
+| 1.0.1   | Updated version number to fix release CI                                         |
+| 1.0.2   | Fixed issue where null values are forced as array of null values.                |
+| 1.0.3   | Downgraded Newtonsoft.Json to make make task work in Frends 5.3.                 |
+| 1.0.4   | JsonMapper: Updated JUST.Net to fix issue with concurrect execution of the Task. |
