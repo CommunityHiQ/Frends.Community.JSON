@@ -55,7 +55,8 @@ namespace Frends.Community.Json
             }
             try
             {
-                result = JsonTransformer.Transform(input.JsonMap, input.InputJson.ToString());
+                var transformer = new JsonTransformer();
+                result = transformer.Transform(input.JsonMap, input.InputJson.ToString());
             }
             catch (Exception ex)
             {
